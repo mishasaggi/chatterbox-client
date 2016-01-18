@@ -8,6 +8,7 @@
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="https://raw.github.com/leizongmin/js-xss/master/dist/xss.js"></script>
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
@@ -15,7 +16,17 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
+      <div class="user-fields">
+        <form class="chat-form" action="submit">
+          <input class="user-name"> username </input>
+          </br>
+          <input class="user-text"> message </input>
+          </br>
+          <button class="chat-form-submit-button"> submit your text!</button>
+        </form>
+      </div>
     </div>
+      <div id="all-chats">
+      </div>
   </body>
 </html>
