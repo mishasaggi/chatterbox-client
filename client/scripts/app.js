@@ -17,6 +17,20 @@ var app = {
 
   fetch: function(){
     //ajax request to get all messages from the server
+    $.ajax({
+      url: app.url,
+      type: 'GET',
+      contentType: 'application/JSON', //receives 401 without specifying this field
+      success: function(data){
+        console.log("data recieved from server", data);
+        //call the function to add the fetched messages to DOM
+        //sanitize messages
+      },
+      error: function(err){
+        console.log("error on fetching messages", err);
+      }
+
+    });
   },
 
   clearMessages: function(){
