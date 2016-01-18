@@ -8,7 +8,8 @@ var app = {
 
   init: function(){
     //the initialization function should call fetch method
-    app.fetch();
+    app.fetch(); //first call on loading the page
+    setInterval(app.fetch, 5000); //auto refresh every 5 seconds
 
   },
   send: function(message){
@@ -19,6 +20,7 @@ var app = {
       data: JSON.stringify(message),
       success: function(status){
         console.log("successfully sent the data, and recieved: ", status, "from the server.");
+        app.fetch();
       },
       error: function(err){
         console.log("error in sending messages to server", err);
@@ -59,6 +61,7 @@ var app = {
   addMessage: function(message){
     var $username = message.username;
     var $usertext = message.text;
+    var $timestamp = message.createdAt;
 
     //create a div to hold a single message
     var postDiv = $("<div></div>");
@@ -66,7 +69,7 @@ var app = {
     var textDiv = $("<div></div>");
 
     usernameDiv.append($username);
-    textDiv.append($usertext);
+    textDiv.append($usertext).append(' ').append($timestamp);
 
     postDiv.append(usernameDiv);
     postDiv.append(textDiv);
