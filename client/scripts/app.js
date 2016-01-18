@@ -13,6 +13,18 @@ var app = {
 
   send: function(message){
     //ajax request to post message to the server
+    $.ajax({
+      url: app.url,
+      type: 'POST',
+      contentType: 'application/JSON',
+      data: JSON.stringify(message),
+      success: function(status){
+        console.log("successfully sent the data, and recieved: ", status, "from the server.");
+      },
+      error: function(err){
+        console.log("error in sending messages to server", err);
+      }
+    });
   },
 
   fetch: function(){
