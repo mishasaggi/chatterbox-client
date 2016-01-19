@@ -5,21 +5,40 @@ var app = {
   init: function(){
     //the initialization function should call fetch method
     app.fetch(); //first call on loading the page
-    setInterval(app.fetch, 10000); //auto refresh every 5 seconds
+    setInterval(app.fetch, 50000); //auto refresh every 5 seconds
     $(document).ready(function(){
+      //event to listen on form submit
+
+        var $inputname, $inputtext, $inputroom;
+
       $('#chat-form').on('submit', function(event){
         //prevent default
         event.preventDefault();
+         $inputname = $('#user-name').val();
+         $inputtext = $('#user-text').val();
+         $inputroom = $('#user-room').val();
 
         //grab user input values
-        var $inputname = $('#user-name').val();
-        var $inputtext = $('#user-text').val();
-        var $inputroom = $('#user-room').val();
         app.handleSubmit($inputname, $inputtext, $inputroom);
+      });
+
+      //event to listen on room selection
+      $('#rooms').on('change', function(event){
+        console.log("selected option: ", $(this).val());
+        var $selectedRoom = $(this).val();
+        //bug: all selection is not working
+        if($(this).val() === 'All') {
+          console.log("selecting all messages here");
+          $("#all-chats").children().show();
+        }
+        //only display messages with the selected room
+        $("#all-chats").children().hide();
+        $('.' + $selectedRoom).show();
       });
     });
 
   },
+
   send: function(message){
     $.ajax({
       url: app.url,
@@ -34,8 +53,8 @@ var app = {
         console.log("error in sending messages to server", err);
       }
     });
-
   },
+
   fetch: function(){
     $.ajax({
       url: app.url,
@@ -53,15 +72,13 @@ var app = {
           sanitizedMessage = data.results[index];
           app.addMessage(sanitizedMessage);
         }
-
       },
       error: function(err){
         console.log("error on fetching messages", err);
       }
-
     });
-
   },
+
   clearMessages: function(){
     //clears messages from the DOM
     $("#all-chats").children().remove();
@@ -87,6 +104,9 @@ var app = {
 
     postDiv.append(usernameDiv);
     postDiv.append(textDiv);
+
+    //add room class to postDiv to categorize chats by rooms
+    postDiv.addClass($userroom);
 
     $("#all-chats").append(postDiv).append('</br>');
 
