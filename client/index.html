@@ -16,17 +16,21 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <div class="user-fields">
-        <form class="chat-form" action="submit">
-          <input class="user-name"> username </input>
+      <div id="user-fields">
+        <form id="chat-form" action="submit">
+          <input id="user-name"> username </input>
           </br>
-          <input class="user-text"> message </input>
+          <input id="user-text"> message </input>
           </br>
-          <button class="chat-form-submit-button"> submit your text!</button>
+          <input id="user-room"> roomname </input>
+          <select id="rooms"  name="which room?"> which room? </select>
+          <label for="rooms"> which room? </label>
+          </br>
+          <button id="chat-form-submit-button" label="submit"> submit your text!</button>
         </form>
       </div>
     </div>
-      <div id="all-chats">
-      </div>
+    <div id="all-chats">
+    </div>
   </body>
 </html>
